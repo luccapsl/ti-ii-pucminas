@@ -1,0 +1,79 @@
+# Compiled class files
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Log files #
+*.log
+logs/
+
+# IDE files and directories #
+# Eclipse
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.launch
+.metadata/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+#Credentials 
+config.properties
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+out/
+gradlew
+gradlew.bat
+!gradle-wrapper.jar # Keep the wrapper JAR for consistent builds
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# System files
+.localized
+.Trashes
+Desktop.ini
+
+# Temporary files
+*~
+*.bak
+*.tmp
+*.temp
