@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Alunos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, button {
+            margin-top: 5px;
+            padding: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .crud-section {
+            margin-bottom: 30px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CRUD de Alunos</h1>
+
+    <!-- CREATE -->
+    <div class="crud-section">
+        <h2>Inserir Aluno</h2>
+        <form id="formCreate">
+            <label>Matrícula:</label>
+            <input type="number" name="matricula" required>
+            
+            <label>Nome:</label>
+            <input type="text" name="nome" required>
+            
+            <label>Curso:</label>
+            <input type="text" name="curso" required>
+            
+            <label>Data de Nascimento:</label>
+            <input type="date" name="dataNascimento" required>
+            
+            <button type="submit">Inserir</button>
+        </form>
+    </div>
+
+    <!-- READ -->
+    <div class="crud-section">
+        <h2>Listar Alunos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Curso</th>
+                    <th>Data de Nascimento</th>
+                </tr>
+            </thead>
+			
+            <tbody>
+                <tr>
+                    <td>882446</td>
+                    <td>Lucca de Paula</td>
+                    <td>Ciência da Computação</td>
+                    <td>2004-01-22</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- UPDATE -->
+    <div class="crud-section">
+        <h2>Atualizar Aluno</h2>
+        <form id="formUpdate">
+            <label>Matrícula (para localizar):</label>
+            <input type="number" name="matricula" required>
+
+            <label>Novo Nome:</label>
+            <input type="text" name="nome">
+
+            <label>Novo Curso:</label>
+            <input type="text" name="curso">
+
+            <label>Nova Data de Nascimento:</label>
+            <input type="date" name="dataNascimento">
+            
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+
+    <!-- DELETE -->
+    <div class="crud-section">
+        <h2>Remover Aluno</h2>
+        <form id="formDelete">
+            <label>Matrícula:</label>
+            <input type="number" name="matricula" required>
+            <button type="submit">Remover</button>
+        </form>
+    </div>
+
+</body>
+</html>

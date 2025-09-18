@@ -1,0 +1,221 @@
+/*
+ * Exercicio 3 - Trabalho Interdisciplinar Backend
+ * Lucca de Paula Silva Lopes | 882446
+ * 
+ */
+
+
+package Ex03;
+
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
+public class Principal {
+
+	//metodo para realizar saida de metodos
+	public static void saidaMetodo(Scanner sc) {
+		String tmp = "";
+		
+		System.out.println("\nAperte ENTER para sair do metodo");
+		tmp = sc.nextLine();
+	}
+	
+	//metodo de insercao dos alunos
+	public static void inserirAlunos( Scanner sc ) {
+		
+		String nome = "", curso = "";
+		int matricula = 0;
+		LocalDate dataNascimento;
+		String dataStr = "";
+		
+		DAO dao = new DAO();
+		
+		System.out.println("==== Inserir Alunos === ");
+		dao.conectar();
+		
+		System.out.print("Escreva o valor da variável matrícula: ");
+		matricula = sc.nextInt();
+		sc.nextLine(); // consome o ENTER que ficou no buffer
+
+		System.out.print("Escreva o valor da variável nome: ");
+		nome = sc.nextLine();
+
+		System.out.print("Escreva o valor da variável curso: ");
+		curso = sc.nextLine();
+
+		System.out.print("Escreva o valor da variável data de nascimento (formato dd/MM/yyyy): ");
+		dataStr = sc.nextLine();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		dataNascimento = LocalDate.parse(dataStr, formatter);
+		
+
+		Aluno aluno = new Aluno(nome, curso, matricula, dataNascimento);
+		
+		if(dao.inserirAluno(aluno) == true) {
+			System.out.println("Inserção com sucesso -> " + aluno.toString());
+		}
+		
+		dao.close();
+		
+		sc.nextLine();
+		saidaMetodo(sc);
+		
+	}
+	
+	
+	
+	//print de alunos
+	public static void mostrarAlunos( Scanner sc ) {
+		DAO dao = new DAO();
+		System.out.println("==== Mostrar Alunos === ");
+		dao.conectar();
+		
+		Aluno[] alunos = dao.getAlunos();
+
+		for(int i = 0; i < alunos.length; i++) {
+			System.out.println(alunos[i].toString());
+		}
+		
+		dao.close();
+		
+		sc.nextLine();
+		saidaMetodo(sc);
+		
+	}
+	
+	//metodo de remocao dos alunos
+	public static void removerAlunos( Scanner sc ) {
+		DAO dao = new DAO();
+		int matricula = 0;
+		dao.conectar();
+		
+		
+		mostrarAlunos(sc);
+		
+		System.out.println("Escreva a matricula do aluno que deseja remover: ");
+		
+		matricula = sc.nextInt();
+		
+		//Excluir usuário
+		
+		if(dao.excluirAluno(matricula) == true) {
+			System.out.println("Remocao realizada com sucesso");
+		}
+		
+		dao.close();
+		
+		sc.nextLine();
+		saidaMetodo(sc);
+		
+	}
+	
+	//metodo de update dos alunos
+	public static void atualizarAlunos( Scanner sc ) {
+		DAO dao = new DAO();
+		int matricula = 0;
+		String nome = "", curso = "", opcao = "";
+		LocalDate dataNascimento;
+		dao.conectar();
+		
+		
+		mostrarAlunos(sc);
+		
+		System.out.println("Escreva a matricula do aluno que voce deseja alterar: ");
+		
+		matricula = sc.nextInt(); sc.nextLine();
+		
+		System.out.println("\n");
+		
+		Aluno[] alunos = dao.getAlunos(matricula);
+	
+		//pega o aluno com a unica matricula
+		Aluno aluno = alunos[0];
+		System.out.println("\nAluno atual:");
+        System.out.println(aluno); 
+        
+		// Alterar nome
+        System.out.print("Deseja alterar o nome? (s/n): ");
+        opcao = sc.nextLine();
+        if (opcao.equalsIgnoreCase("s")) {
+            System.out.print("Digite o novo nome: ");
+            nome = sc.nextLine();
+            aluno.setNome(nome);
+        } else {
+            System.out.println("Nome mantido.");
+        }
+
+        // Alterar curso
+        System.out.print("Deseja alterar o curso? (s/n): ");
+        opcao = sc.nextLine();
+        if (opcao.equalsIgnoreCase("s")) {
+            System.out.print("Digite o novo curso: ");
+            curso = sc.nextLine();
+        } else {
+            System.out.println("Curso mantido.");
+        }
+
+        // Alterar data de nascimento
+        System.out.print("Deseja alterar a data de nascimento? (s/n): ");
+        opcao = sc.nextLine();
+        if (opcao.equalsIgnoreCase("s")) {
+            System.out.print("Digite a nova data (formato dd/MM/yyyy): ");
+            String dataStr = sc.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dataNascimento = LocalDate.parse(dataStr, formatter);
+        } else {
+            System.out.println("Data de nascimento mantida.");
+        }
+		
+        if(dao.atualizarAluno(aluno) == true) {
+			System.out.println("Alteracao realizada com sucesso");
+		} else {
+			System.out.println("Erro na Alteracao!");
+		}
+		
+		dao.close();
+		
+		sc.nextLine();
+		saidaMetodo(sc);
+		
+	}
+	
+	public static void main(String[] args) {
+		
+
+		int opcao = 0;
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Exercicio 2 - Ti 2 - Lucca de Paula | 882446");
+		
+		//looping do programa para ficar em menu
+		do {
+					
+			System.out.print("\n0. Sair do Programa");
+			System.out.print("\n1. Listar Alunos");
+			System.out.print("\n2. Inserir Alunos");
+			System.out.print("\n3. Remover Alunos");
+			System.out.println("\n4. Atualizar Alunos");
+			
+			
+			
+			System.out.print("\nEscreva a opcao que voce deseja: ");
+			opcao = sc.nextInt();
+			
+			switch (opcao) {
+				case 0: break;
+				case 1: mostrarAlunos(sc); break;
+				case 2: inserirAlunos(sc); break;
+				case 3: removerAlunos(sc); break;
+				case 4: atualizarAlunos(sc); break;
+
+				default:
+					System.out.println("Valor invalido!");
+					break;
+			}
+		} while (opcao != 0);
+		
+
+	}
+}
